@@ -10,8 +10,6 @@
 //
 // Execute `rustlings hint rc1` or use the `hint` watch subcommand for a hint.
 
-// I AM NOT DONE
-
 use std::rc::Rc;
 
 #[derive(Debug)]
@@ -35,70 +33,74 @@ impl Planet {
     }
 }
 
+#[test]
 fn main() {
     let sun = Rc::new(Sun {});
-    println!("reference count = {}", Rc::strong_count(&sun)); // 1 reference
+    println!("1reference count = {}", Rc::strong_count(&sun)); // 1 reference
 
     let mercury = Planet::Mercury(Rc::clone(&sun));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 2 references
+    println!("2reference count = {}", Rc::strong_count(&sun)); // 2 references
     mercury.details();
 
     let venus = Planet::Venus(Rc::clone(&sun));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 3 references
+    println!("3reference count = {}", Rc::strong_count(&sun)); // 3 references
     venus.details();
 
     let earth = Planet::Earth(Rc::clone(&sun));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 4 references
+    println!("4reference count = {}", Rc::strong_count(&sun)); // 4 references
     earth.details();
 
     let mars = Planet::Mars(Rc::clone(&sun));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 5 references
+    println!("5reference count = {}", Rc::strong_count(&sun)); // 5 references
     mars.details();
 
     let jupiter = Planet::Jupiter(Rc::clone(&sun));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 6 references
+    println!("6reference count = {}", Rc::strong_count(&sun)); // 6 references
     jupiter.details();
 
     // TODO
-    let saturn = Planet::Saturn(Rc::new(Sun {}));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 7 references
+    let saturn = Planet::Saturn(Rc::clone(&sun));
+    println!("7reference count = {}", Rc::strong_count(&sun)); // 7 references
     saturn.details();
 
     // TODO
-    let uranus = Planet::Uranus(Rc::new(Sun {}));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
+    let uranus = Planet::Uranus(Rc::clone(&sun));
+    println!("8reference count = {}", Rc::strong_count(&sun)); // 8 references
     uranus.details();
 
     // TODO
-    let neptune = Planet::Neptune(Rc::new(Sun {}));
-    println!("reference count = {}", Rc::strong_count(&sun)); // 9 references
+    let neptune = Planet::Neptune(Rc::clone(&sun));
+    println!("9reference count = {}", Rc::strong_count(&sun)); // 9 references
     neptune.details();
 
     assert_eq!(Rc::strong_count(&sun), 9);
 
     drop(neptune);
-    println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
+    println!("0reference count = {}", Rc::strong_count(&sun)); // 8 references
 
     drop(uranus);
-    println!("reference count = {}", Rc::strong_count(&sun)); // 7 references
+    println!("areference count = {}", Rc::strong_count(&sun)); // 7 references
 
     drop(saturn);
-    println!("reference count = {}", Rc::strong_count(&sun)); // 6 references
+    println!("breference count = {}", Rc::strong_count(&sun)); // 6 references
 
     drop(jupiter);
-    println!("reference count = {}", Rc::strong_count(&sun)); // 5 references
+    println!("creference count = {}", Rc::strong_count(&sun)); // 5 references
 
     drop(mars);
-    println!("reference count = {}", Rc::strong_count(&sun)); // 4 references
+    println!("dreference count = {}", Rc::strong_count(&sun)); // 4 references
 
     // TODO
-    println!("reference count = {}", Rc::strong_count(&sun)); // 3 references
+    drop(earth);
+    println!("ereference count = {}", Rc::strong_count(&sun)); // 3 references
 
     // TODO
-    println!("reference count = {}", Rc::strong_count(&sun)); // 2 references
+    drop(venus);
+    println!("freference count = {}", Rc::strong_count(&sun)); // 2 references
 
     // TODO
-    println!("reference count = {}", Rc::strong_count(&sun)); // 1 reference
+    drop(mercury);
+    println!("greference count = {}", Rc::strong_count(&sun)); // 1 reference
 
     assert_eq!(Rc::strong_count(&sun), 1);
 }
